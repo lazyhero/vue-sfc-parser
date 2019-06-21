@@ -1,0 +1,44 @@
+{
+  "name": "vue-sfc-parser",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:lazyhero/vue-sfc-parser.git",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/generator": "^7.4.4",
+    "@babel/parser": "^7.4.5",
+    "@babel/traverse": "^7.4.5",
+    "@babel/types": "^7.4.4",
+    "@types/jest": "^24.0.15",
+    "jest": "^24.8.0",
+    "rollup-plugin-typescript2": "^0.21.2",
+    "ts-jest": "^24.0.2",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "scripts": {
+    "test": "jest --verbose",
+    "build": "yarn lint && rollup --config rollup.config.js",
+    "prepublishOnly": "yarn build",
+    "lint": "tslint --project tsconfig.json --fix",
+    "prepublish": "npm version patch -f",
+    "version": "git add .",
+    "postversion": "git push -f"
+  },
+  "files": [
+    "lib",
+    "src",
+    "test"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run build"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "tslint --project ./tsconfig.json --fix",
+      "git add"
+    ]
+  }
+}
